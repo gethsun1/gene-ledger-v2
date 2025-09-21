@@ -1,0 +1,8 @@
+node_modules/
+.next/
+.env*
+project/chain/node_modules/
+project/chain/.env
+chain/node_modules/
+chain/.env
+*.log
