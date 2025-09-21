@@ -20,6 +20,8 @@ import {
   FileText,
   Crown
 } from 'lucide-react';
+import { useWithdrawEscrow } from '@/hooks/useRegistry';
+import { Button } from '@/components/ui/button';
 
 const daoMetrics = {
   totalDatasets: 1247,
@@ -72,6 +74,7 @@ const members = [
 
 export default function DaoPage() {
   const [activeTab, setActiveTab] = useState("overview");
+  const { withdraw, isPending } = useWithdrawEscrow();
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -195,6 +198,22 @@ export default function DaoPage() {
                         <span className="text-xs text-gray-500">{activity.time}</span>
                       </div>
                     ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Withdraw Escrow */}
+              <Card className="glassmorphism border-0 rounded-2xl">
+                <CardHeader>
+                  <CardTitle>Withdraw Escrow</CardTitle>
+                  <CardDescription>Claim your earned FIL from dataset sales</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm text-gray-600">Withdraw all available escrow to your wallet.</p>
+                    <Button onClick={() => withdraw()} disabled={isPending} className="rounded-xl">
+                      {isPending ? 'Withdrawing...' : 'Withdraw'}
+                    </Button>
                   </div>
                 </CardContent>
               </Card>

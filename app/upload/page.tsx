@@ -9,7 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { UploadDropzone } from '@/components/forms/UploadDropzone';
 import { Progress } from '@/components/ui/progress';
-import { Upload, FileText, Tag, Loader2 } from 'lucide-react';
+import { Upload, FileText, Tag, Loader2, Coins, Shield } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { getIpfsHttpUrl } from '@/lib/ipfs';
 import { useRegisterDataset } from '@/hooks/useRegistry';
@@ -19,6 +19,8 @@ export default function UploadPage() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [tags, setTags] = useState('');
+  const [priceFil, setPriceFil] = useState('0');
+  const [accessLevel, setAccessLevel] = useState<'Open' | 'Standard' | 'Premium'>('Open');
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const { toast } = useToast();
@@ -62,7 +64,7 @@ export default function UploadPage() {
 
       // Register on-chain (price 0 for now; could add UI input for price)
       try {
-        await register({ title, description, cid, priceFil: '0', accessLevel: 'Open' });
+        await register({ title, description, cid, priceFil: priceFil || '0', accessLevel });
         toast({ title: 'Registered on-chain ✅', description: `CID: ${cid}` });
       } catch (e: any) {
         toast({ title: 'On-chain registration failed', description: e?.message || 'Unknown error', variant: 'destructive' });
@@ -167,6 +169,45 @@ export default function UploadPage() {
                   onChange={(e) => setTags(e.target.value)}
                   className="rounded-xl"
                 />
+              </div>
+
+              {/* Price (FIL) */}
+              <div className="space-y-2">
+                <Label htmlFor="price" className="flex items-center gap-2">
+                  <Coins className="h-4 w-4" />
+                  Price (FIL)
+                </Label>
+                <Input
+                  id="price"
+                  type="number"
+                  min="0"
+                  step="0.0001"
+                  placeholder="0"
+                  value={priceFil}
+                  onChange={(e) => setPriceFil(e.target.value)}
+                  className="rounded-xl"
+                />
+              </div>
+
+              {/* Access Level */}
+              <div className="space-y-2">
+                <Label className="flex items-center gap-2">
+                  <Shield className="h-4 w-4" />
+                  Access Level
+                </Label>
+                <div className="grid grid-cols-3 gap-2">
+                  {(['Open','Standard','Premium'] as const).map(level => (
+                    <Button
+                      key={level}
+                      type="button"
+                      variant={accessLevel === level ? 'default' : 'outline'}
+                      onClick={() => setAccessLevel(level)}
+                      className="rounded-xl"
+                    >
+                      {level}
+                    </Button>
+                  ))}
+                </div>
               </div>
 
               {/* Upload Progress */}

@@ -34,8 +34,9 @@ Gene-Ledger is a Web3 DApp that enables secure storage, retrieval, and sharing o
 - `DatasetRegistry` Solidity contract (register datasets, purchase access, escrow withdraw)
 - Hardhat subproject under `chain/` with compile/deploy scripts
 - Frontend wiring:
-  - Register dataset on-chain after IPFS upload
+  - Register dataset on-chain after IPFS upload (with price/access level inputs)
   - Paywall in Retrieve cards: purchase access for Standard/Premium, retrieve if permitted
+  - Withdraw escrow from DAO page
 
 ## 🚀 Quick Start
 
