@@ -1,7 +1,6 @@
 import { http, createConfig } from 'wagmi';
 import { mainnet, sepolia } from 'wagmi/chains';
 import { injected, metaMask, walletConnect } from 'wagmi/connectors';
-import { getDefaultConfig } from '@rainbow-me/rainbowkit';
 
 // Filecoin network configurations
 export const filecoinMainnet = {
@@ -50,20 +49,6 @@ export const filecoinCalibration = {
 
 // Project info for WalletConnect
 const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || '98bb90e81b815a06c389de956008d427';
-
-// RainbowKit configuration
-export const config = getDefaultConfig({
-  appName: 'Gene-Ledger',
-  projectId,
-  chains: [filecoinMainnet, filecoinCalibration, mainnet, sepolia],
-  transports: {
-    [filecoinMainnet.id]: http(),
-    [filecoinCalibration.id]: http(),
-    [mainnet.id]: http(),
-    [sepolia.id]: http(),
-  },
-  ssr: true, // Enable server-side rendering
-});
 
 // Alternative Wagmi configuration (if not using RainbowKit)
 export const wagmiConfig = createConfig({

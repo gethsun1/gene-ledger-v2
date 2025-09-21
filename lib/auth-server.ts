@@ -1,12 +1,10 @@
-import { SignJWT, jwtVerify } from 'jose';
+import { SignJWT, jwtVerify, type JWTPayload as JoseJWTPayload } from 'jose';
 import { cookies } from 'next/headers';
 
 // JWT payload interface
-interface JWTPayload {
+interface JWTPayload extends JoseJWTPayload {
   address: string;
   chainId: number;
-  iat: number;
-  exp: number;
 }
 
 // Environment variables
@@ -31,7 +29,7 @@ export async function createSession(address: string, chainId: number): Promise<s
     exp: Math.floor(Date.now() / 1000) + COOKIE_OPTIONS.maxAge,
   };
 
-  const token = await new SignJWT(payload)
+  const token = await new SignJWT(payload as JoseJWTPayload)
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
     .setExpirationTime('7d')

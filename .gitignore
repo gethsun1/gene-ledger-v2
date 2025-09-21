@@ -6,3 +6,5 @@ project/chain/.env
 chain/node_modules/
 chain/.env
 *.log
+
+tsconfig.tsbuildinfo

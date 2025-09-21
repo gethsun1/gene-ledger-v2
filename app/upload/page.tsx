@@ -14,6 +14,8 @@ import { useToast } from '@/hooks/use-toast';
 import { getIpfsHttpUrl } from '@/lib/ipfs';
 import { useRegisterDataset } from '@/hooks/useRegistry';
 
+export const dynamic = 'force-dynamic';
+
 export default function UploadPage() {
   const [file, setFile] = useState<File | null>(null);
   const [title, setTitle] = useState('');

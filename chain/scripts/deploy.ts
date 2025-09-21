@@ -5,8 +5,9 @@ async function main(){
   console.log('Deployer:', deployer.address);
   const Registry = await ethers.getContractFactory('DatasetRegistry');
   const registry = await Registry.deploy(deployer.address);
-  await registry.deployed();
-  console.log('DatasetRegistry:', registry.address);
+  await registry.waitForDeployment();
+  const addr = await registry.getAddress();
+  console.log('DatasetRegistry:', addr);
 }
 
 main().catch((e)=>{console.error(e);process.exitCode=1;});
