@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
 import { 
@@ -21,7 +20,6 @@ import {
   Crown
 } from 'lucide-react';
 import { useWithdrawEscrow } from '@/hooks/useRegistry';
-import { Button } from '@/components/ui/button';
 
 const daoMetrics = {
   totalDatasets: 1247,
